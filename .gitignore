@@ -1,1 +1,18 @@
+# Entorno virtual
 vision-bbox/
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Variables de entorno
+.env
+
+# Sistema
+.DS_Store
+Thumbs.db
