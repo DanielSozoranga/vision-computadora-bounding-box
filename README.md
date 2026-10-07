@@ -8,13 +8,15 @@ El proyecto carga una imagen con muchos objetos de clases distintas, dibuja una 
 
 ![Resultado con cajas y etiquetas](reports/resultado.png)
 
-Se marcaron **25 objetos de 18 clases**: teclado, libreta, cuaderno de espiral, manzana, mouse, celular, clips, bolígrafo, fotos, chinches, lentes, lápiz, borrador, audífono, cinta, llaves, marcadores y cartera. Todas las cajas tienen grosor 5 y las de la misma clase comparten color, igual que en los detectores de objetos reales.
+Se marcaron **23 objetos de 17 clases**: portapapeles, carpetas, laptop, libros, lupa, lentes, llave, clips, libro abierto, ábaco, pinza, disquete, botón, computadora, pegamento, tijeras y cuaderno. Todas las cajas tienen grosor 5 y las de la misma clase comparten color, igual que en los detectores de objetos reales.
+
+La imagen de entrada es una ilustración de objetos de oficina sobre fondo blanco, de Freepik. Las coordenadas de las cajas se midieron sobre esa imagen.
 
 ## Qué hace el notebook
 
 El archivo `notebooks/bounding_box_opencv.ipynb` tiene dos partes.
 
-**Tutorial.** Instala y verifica OpenCV, carga una imagen, la muestra con Matplotlib y dibuja una primera caja con `cv2.rectangle`.
+**Tutorial.** Es el del profesor y se conserva sin cambios, con sus resultados guardados. Instala y verifica OpenCV, carga una imagen, la muestra con Matplotlib y dibuja una primera caja con `cv2.rectangle`. Usa la imagen del gato del profesor, que no está incluida en este repositorio, así que esas celdas no se vuelven a ejecutar.
 
 **Actividad individual.**
 
@@ -26,10 +28,11 @@ El archivo `notebooks/bounding_box_opencv.ipynb` tiene dos partes.
 
 ### Decisiones de implementación
 
-- **Un color por clase.** Los 4 clips son cian y los 4 marcadores son grises. Así las cajas se distinguen por clase, como en cualquier detector.
-- **Imagen ampliada 2x.** La imagen original mide 612 x 408 píxeles. Se agranda al doble dentro del código para que las cajas de grosor 5 no tapen objetos angostos como el lápiz o los clips. El archivo original no se modifica.
+- **Un color por clase.** Los 4 clips comparten un color, y lo mismo pasa con las 2 carpetas y las 2 tijeras. Así las cajas se distinguen por clase, como en cualquier detector.
+- **Etiquetas legibles.** El texto de cada etiqueta es blanco sobre las franjas oscuras y negro sobre las claras, según la luminosidad del color de la clase.
+- **Imagen ampliada 2x.** La imagen original mide 740 x 555 píxeles. Se agranda al doble dentro del código para que las cajas de grosor 5 no tapen objetos angostos como los clips o la llave. El archivo original no se modifica.
 - **Margen blanco arriba.** Se agrega un margen de 60 píxeles en la parte superior para que las etiquetas de las cajas de arriba queden encima de su caja y dentro de la imagen.
-- **Coordenadas en la imagen original.** La lista `objects` guarda las coordenadas medidas sobre la imagen de 612 x 408 y una función las convierte a la imagen ampliada.
+- **Coordenadas en la imagen original.** La lista `objects` guarda las coordenadas medidas sobre la imagen de 740 x 555 y una función las convierte a la imagen ampliada.
 - **Copia de trabajo.** Las cajas y las etiquetas se dibujan sobre copias (`img.copy()`), así la imagen cargada queda intacta.
 
 ## Método de detección automática: YOLO
@@ -57,7 +60,7 @@ notebooks/
     bounding_box_opencv.ipynb    Notebook con el tutorial y la actividad resuelta
 data/
     images/
-        escritorio_organizado.png    Imagen de entrada con los objetos
+        objetos_oficina.png          Imagen de entrada con los objetos
 reports/
     resultado.png                Imagen final con cajas y etiquetas
 requirements.txt                 Dependencias de Python
@@ -133,7 +136,7 @@ Con VS Code: abre `notebooks/bounding_box_opencv.ipynb`, pulsa **Select Kernel**
 python -m ipykernel install --user --name vision-bbox --display-name "Python (vision-bbox)"
 ```
 
-Después ejecuta todas las celdas con **Run All**. Las rutas del notebook son relativas a la carpeta `notebooks/`, así que no hay que cambiar nada.
+Después ejecuta las celdas de la sección **Individual Activity**, que son los puntos 1 a 4, una por una o con **Execute Cell and Below** desde el primero. Las rutas son relativas a la carpeta `notebooks/`, así que no hay que cambiar nada. Si usas **Run All**, se detendrá en la celda del tutorial que carga el gato del profesor (`cat.jpg`), porque esa imagen no está en el repositorio.
 
 ## Usar otra imagen
 
